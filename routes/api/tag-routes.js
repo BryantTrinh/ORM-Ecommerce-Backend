@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
+// Basically, it's very similar for all routes. Just do Tag.findOne (GET/get one product)/ Tag.findAll(GET/all products) / Tag.Update (PUT) / Tag.destroy (DELETE) / Tag. / Tag.create(POST). 
+// We end with then/catch statements of 200 for then/ 400 for catch.
+// req.params.id for singular: router.get/Tag.findOne , for PUT, for delete.
+// req.body for PUT and also req.params.id, 
 
 router.get('/', (req, res) => {
   // find all tags
@@ -16,10 +20,7 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-
+router.put('/:id', (req, res) => {
   Tag.update(req.body, { where: {
       id: req.params.id,
     },
