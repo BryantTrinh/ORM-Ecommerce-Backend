@@ -18,14 +18,15 @@ Product.init(
 
     },
     product_name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
       allowNull: false,
     },
     // DECIMAL (12,2) so we can store 10 digits and 2 digits after the decimal. We need to add a validator to see if it is a decimal
     price: {
       type: DataTypes.DECIMAL(12,2),
       allowNull: false,
-      validate { isDecimal: true,},
+      validate: { isDecimal: true,
+      },
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -37,8 +38,9 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: true,
       // references to category model and its key id
-      references: { 'category',
-      key: 'id',
+      references: { 
+        model: 'category',
+        key: 'id',
       },
     },
   },

@@ -93,9 +93,9 @@ router.put('/:id', (req, res) => {
     .then((product) => {
       // find all associated tags from ProductTag
       // Should be similar to what we did up top for creating a new product
-      if (req.body.tagsId.length && req.body.tagsId) {
+      if (req.body.tagIds.length && req.body.tagIds) {
       // create const for productTags and set value to find all productTags, where product_id is req.params.id
-      const productTags = productTags.findAll({
+      const productTags = productTag.findAll({
         where: {
           product_id: req.params.id }
         });
@@ -108,7 +108,12 @@ router.put('/:id', (req, res) => {
 
         const newProductTags = req.body.tagIds
         .filter(tag_id => !productTagIds.includes(tag_id))
-        .map(tag_id => ({ product_id: req.params.id, tag_id}));
+        .map((tag_id) => {
+          return {
+            product_id: req.params.id,
+            tag_id,
+          };
+        });
 
 
       // figure out which ones to remove
